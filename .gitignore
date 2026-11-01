@@ -1,0 +1,46 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Audio output files
+output.wav
+test.wav
+*.mp3
+*.wav
+
+# Conversation history and runtime data
+conversation_history.json
+conversations.json
+
+# Logs
+*.log
+logs/
+
+# IDE and editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+
+# Test and coverage cache
+.pytest_cache/
+.coverage
+htmlcov/
