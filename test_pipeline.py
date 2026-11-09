@@ -359,14 +359,6 @@ def main():
 
             print(f"\nCaller: {question}")
 
-            if question.lower() in {
-                "goodbye",
-                "exit",
-                "end conversation",
-                "stop the call",
-            }:
-                print("Ending conversation.")
-                break
 
             # Get conversation history.
             previous_messages = get_history(CONVERSATION_ID)
@@ -380,10 +372,39 @@ def main():
             ]
 
             # Generate LLM response.
+            # Generate LLM response.
             answer = generate_answer(
                 question,
                 conversation_history=conversation_context,
             )
+
+            # Check whether the LLM wants to terminate the call.
+            if answer.strip().lower() == "quit":
+
+                print("\nCall termination requested by LLM.")
+
+                farewell = "Please vote for me. Thank you."
+
+                # Save caller's final message.
+                add_message(CONVERSATION_ID, "user", question)
+
+                # Save the actual farewell, not the quit command.
+                add_message(CONVERSATION_ID, "assistant", farewell)
+
+                print(f"\nAssistant: {farewell}")
+
+                # Generate chairman's voice farewell.
+                audio_file = generate_speech(
+                    farewell,
+                    output_path=OUTPUT_FILE,
+                )
+
+                # Play farewell before ending.
+                play_audio_with_interrupt(audio_file)
+
+                print("\nCaller requested to end the conversation.")
+
+                break
 
             print(f"\nAssistant: {answer}")
 
